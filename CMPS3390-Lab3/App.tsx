@@ -5,8 +5,24 @@ export default function HomeScreen() {
   const [pokemonName, setPokemonName] = useState("");
 
   function handleSearch() {
-    const q = pokemonName.trim();
-    console.log("Search pressed:", q);
+    const name = pokemonName.trim().toLowerCase();
+    if(!name) {
+      console.log("Please enter a Pokemon name");
+      return;
+    }
+    fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
+      .then(response => {
+        if(!response.ok) {
+          throw new Error(`Pokemon not found: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log("PokeAPI response:", data);
+      })
+      .catch(error => {
+        console.error("Error fetching Pokemon:", error.message);
+      });
   }
 
   return (
