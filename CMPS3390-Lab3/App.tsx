@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { Button, StyleSheet, Text, TextInput, View, Image } from "react-native";
 
 export default function HomeScreen() {
   const [pokemonName, setPokemonName] = useState("");
@@ -51,7 +51,29 @@ export default function HomeScreen() {
 
       {loading && <Text>Loading...</Text>}
       {error && <Text style = {{ color: "red"}}>{error}</Text>}
-      {pokemon && <Text>Found: {pokemon.name}</Text>}
+      {pokemon && (
+        <View>
+          <Text>Name: {pokemon.name}</Text>
+          {pokemon.sprites?.front_default && (
+            <Image
+              source = {{ uri: pokemon.sprites.front_default }}
+              style = {{ width: 120, height: 120 }}
+              />
+          )}
+          <Text>Types:</Text>
+          {pokemon.types?.map((t: any, i: number) => (
+            <Text key = {i}>- {t.type.name}</Text>
+          ))}
+          <Text>Abilities:</Text>
+          {pokemon.abilities?.map((a: any, i: number) => (
+            <Text key = {i}>- {a.ability.name}</Text>
+          ))}
+          <Text>First 5 Moves:</Text>
+          {pokemon.moves?.slice(0, 5).map((m: any, i: number) => (
+            <Text key = {i}>- {m.move.name}</Text>
+          ))}
+        </View>
+      )}
     </View>
   );
 }
