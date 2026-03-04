@@ -3,13 +3,19 @@ import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function HomeScreen() {
   const [pokemonName, setPokemonName] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null> (null);
+  const [pokemon, setPokemon] = useState<any>(null);
 
   function handleSearch() {
     const name = pokemonName.trim().toLowerCase();
     if(!name) {
-      console.log("Please enter a Pokemon name");
+      setError("Please enter a Pokemon name");
       return;
     }
+    setLoading(true);
+    setError(null);
+    setPokemon(null);
     fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
       .then(response => {
         if(!response.ok) {
@@ -18,10 +24,13 @@ export default function HomeScreen() {
         return response.json();
       })
       .then(data => {
-        console.log("PokeAPI response:", data);
+        setPokemon(data);
       })
       .catch(error => {
-        console.error("Error fetching Pokemon:", error.message);
+        setError(error.message);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }
 
@@ -39,6 +48,10 @@ export default function HomeScreen() {
       />
 
       <Button title="Get Pokemon" onPress={handleSearch} />
+
+      {loading && <Text>Loading...</Text>}
+      {error && <Text style = {{ color: "red"}}>{error}</Text>}
+      {pokemon && <Text>Found: {pokemon.name}</Text>}
     </View>
   );
 }
