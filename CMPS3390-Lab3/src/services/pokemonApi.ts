@@ -1,4 +1,4 @@
-import { Pokemon } from "../models/Pokemon";
+import { PokemonBuilder } from "../models/PokemonBuilder";
 
 export function getPokemon(name: string) {
     const trimName = name.trim().toLowerCase();
@@ -13,12 +13,12 @@ export function getPokemon(name: string) {
         return response.json();
       })
       .then(data => {
-        return {
-        name: data.name,
-        image: data.sprites.front_default,
-        types: data.types.map((t: any) => t.type.name),
-        abilities: data.abilities.map((a: any) => a.ability.name),
-        moves: data.moves.slice(0, 5).map((m: any) => m.move.name)
-        } as Pokemon;
+        return new PokemonBuilder()
+          .setName(data.name)
+          .setImage(data.sprites.front_default)
+          .setTypes(data.types.map((t: any) => t.type.name))
+          .setAbilities(data.abilities.map((a: any) => a.ability.name))
+          .setMoves(data.moves.slice(0, 5).map((m: any) => m.move.name))
+          .build();
       });
 }

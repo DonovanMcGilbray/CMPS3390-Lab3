@@ -30,3 +30,15 @@ If you wanted to reuse the Pokémon API logic in another screen, what would you 
 
 If you wanted to test the API parsing logic, how would you do it right now?
     to test the API parsing logic you'd have to run the app and  check the console output, since the logic is inside the component
+
+Why is it a win that the service doesn’t import React?
+    the service only handles data fetching and parsing, making it independent from the UI. this makes it reusable in other parts of the app and is easier to test because you don't need to show the UI elements to check the API logic
+
+What is the contract of the service function (inputs/outputs/errors)?
+    the input is a pokemon name as a string, the output is the data about that pokemon returned from the API, and the errors are if the name is empty or the pokemon can't be found
+
+What does a builder pattern buy you here?
+    it lets you create Pokemon objects in a clear way without worrying about the order for arguments
+
+In what way is a model safer than raw API JSON?
+    the model only uses the fields that the app needs and provides type safety that reduces errors from unexpected or missing API data
