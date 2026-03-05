@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View, Image } from "react-native";
 import { getPokemon } from "./src/services/pokemonApi";
+import { Pokemon } from "./src/models/Pokemon";
 
 export default function HomeScreen() {
   const [pokemonName, setPokemonName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null> (null);
-  const [pokemon, setPokemon] = useState<any>(null);
+  const [pokemon, setPokemon] = useState<Pokemon | null>(null);
 
   function handleSearch() {
     setLoading(true);
@@ -44,23 +45,23 @@ export default function HomeScreen() {
       {pokemon && (
         <View>
           <Text>Name: {pokemon.name}</Text>
-          {pokemon.sprites?.front_default && (
+          {pokemon.image && (
             <Image
-              source = {{ uri: pokemon.sprites.front_default }}
+              source = {{uri: pokemon.image }}
               style = {{ width: 120, height: 120 }}
-              />
+            />
           )}
           <Text>Types:</Text>
-          {pokemon.types?.map((t: any, i: number) => (
-            <Text key = {i}>- {t.type.name}</Text>
+          {pokemon.types.map((t, i) => (
+            <Text key = {i}>- {t}</Text>
           ))}
           <Text>Abilities:</Text>
-          {pokemon.abilities?.map((a: any, i: number) => (
-            <Text key = {i}>- {a.ability.name}</Text>
+          {pokemon.abilities.map((a, i) => (
+            <Text key = {i}>- {a}</Text>
           ))}
           <Text>First 5 Moves:</Text>
-          {pokemon.moves?.slice(0, 5).map((m: any, i: number) => (
-            <Text key = {i}>- {m.move.name}</Text>
+          {pokemon.moves.map((m, i) => (
+            <Text key = {i}>- {m}</Text>
           ))}
         </View>
       )}
