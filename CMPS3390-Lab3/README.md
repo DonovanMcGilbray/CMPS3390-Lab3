@@ -60,3 +60,10 @@ Why should favorites live in the controller and not the view?
 
 What does “derived state” mean for isFavorite?
     derived state means it's calculated from the current Pokemon. isFavorite is derived because it's calculated from the current Pokemon and the favorites list.
+
+Why is persistence implemented as a service?
+    persistence is implemented as a service because it separates the storage logic from the controller and view. this makes the code reusable and easier to test since controller just calls the service
+
+What is the difference between “state” and “persisted state”?
+    state is data that exists temporarily while the app is running while persisted state is data that is saved to storage, like AsyncStorage, so it stays after closing or restarting the app
+
