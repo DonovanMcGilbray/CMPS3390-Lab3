@@ -38,7 +38,25 @@ What is the contract of the service function (inputs/outputs/errors)?
     the input is a pokemon name as a string, the output is the data about that pokemon returned from the API, and the errors are if the name is empty or the pokemon can't be found
 
 What does a builder pattern buy you here?
-    it lets you create Pokemon objects in a clear way without worrying about the order for arguments
+    it lets you create Pokemon objects using setters so you don't have to worry about the order for arguments
 
 In what way is a model safer than raw API JSON?
     the model only uses the fields that the app needs and provides type safety that reduces errors from unexpected or missing API data
+
+What responsibilities does the controller own?
+    the controller handles input validation(makes sure the pokemon name is valid), manages state for loading, error messages, and the fetched pokemon, and calls getPokemon to fetch data from the API
+
+Why is the controller a better place for input validation than the view?
+    the controller is a better place because it makes the view simple and focused on the UI instead of the rules, it makes the logic reusable and testable without needing to see the UI components
+
+What props does the view need?
+    the view needs props for all the data that is displayed and actions it triggers including: pokemonName, setPokemonName, pokemon, loading, error, onSearch
+
+What would break if the view tried to call the API directly?
+    if the view called the API, it would mix the UI code with data fetching logic. this would make the app harder to maintain, test, and reuse
+
+Why should favorites live in the controller and not the view?
+    the controller manages the app's data and logic while the view only displays UI
+
+What does “derived state” mean for isFavorite?
+    derived state means it's calculated from the current Pokemon. isFavorite is derived because it's calculated from the current Pokemon and the favorites list.

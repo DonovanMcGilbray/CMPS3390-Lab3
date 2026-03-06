@@ -6,6 +6,9 @@ export function usePokemonController() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null> (null);
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
+  const [favorites, setFavorites] = useState<string[]>([]);
+
+  const isFavorite = pokemon !== null && favorites.includes(pokemon.name);
 
   function handleSearch(name: string) {
     const trimName = name.trim().toLowerCase();
@@ -27,10 +30,28 @@ export function usePokemonController() {
         setLoading(false);
       });
   }
+
+  function toggleFavorite() {
+    if(!pokemon) return;
+    if(favorites.includes(pokemon.name)) {
+        setFavorites(favorites.filter(f => f !== pokemon.name));
+    } else {
+        setFavorites([...favorites, pokemon.name]);
+    }
+  }
+
+  function loadFavorite(name: string) {
+    handleSearch(name);
+  }
+
   return {
     pokemon,
     loading,
     error,
-    handleSearch
+    handleSearch,
+    favorites,
+    isFavorite,
+    toggleFavorite,
+    loadFavorite
   };
 }
