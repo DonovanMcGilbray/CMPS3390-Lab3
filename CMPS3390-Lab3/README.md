@@ -67,3 +67,8 @@ Why is persistence implemented as a service?
 What is the difference between “state” and “persisted state”?
     state is data that exists temporarily while the app is running while persisted state is data that is saved to storage, like AsyncStorage, so it stays after closing or restarting the app
 
+Why does this animation belong in the view layer?
+    the animation belongs in the view layer because the animation controls how the UI is displayed which is what the view is responsible for
+
+What triggers the animation and why?
+    the animation is triggered when the pokemon state changes. useEffect watches the pokemon value, and when a new pokemon is loaded, it starts the fade and spin animation
