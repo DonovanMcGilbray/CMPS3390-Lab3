@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View, Image } from "react-native";
-import { usePokemonController } from "./src/controllers/usePokemonController";
-import PokemonView from "./src/components/PokemonView";
+import { usePokemonController } from "../controllers/usePokemonController";
+import PokemonView from "../components/PokemonView";
 
 export default function HomeScreen() {
   const [pokemonName, setPokemonName] = useState("");

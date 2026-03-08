@@ -55,40 +55,41 @@ export default function PokemonView({ pokemonName, setPokemonName, pokemon, load
             {loading && <Text>Loading...</Text>}
         {error && <Text style = {{ color: "red"}}>{error}</Text>}
         {pokemon && (
-            <Animated.View 
-            style = {{ opacity: fadeAnim, transform: [{ rotate }]
-                }}
-            >
-            <View>
-            <Text>Name: {pokemon.name}</Text>
-            <Button title = {isFavorite ? "Unfavorite" : "Favorite"} onPress = {onToggleFavorite}/>
-            {pokemon.image && (
-                <Image
-                source = {{uri: pokemon.image }}
-                style = {{ width: 120, height: 120 }}
-                />
-            )}
-            <Text>Types:</Text>
-            {pokemon.types.map((t, i) => (
-                <Text key = {i}>- {t}</Text>
-            ))}
-            <Text>Abilities:</Text>
-            {pokemon.abilities.map((a, i) => (
-                <Text key = {i}>- {a}</Text>
-            ))}
-            <Text>First 5 Moves:</Text>
-            {pokemon.moves.map((m, i) => (
-                <Text key = {i}>- {m}</Text>
-            ))}
-            <Text style = {{ marginTop: 20 }}>Favorites</Text>
-            {favorites.map((name, i) => (
-                <Text key = {i} style = {{ color: "blue" }} onPress = {() => onLoadFavorite(name)}
-                >
-                    {name}
-                </Text>
-            ))}
-            </View>
-        </Animated.View>
+            <View> 
+                <Animated.View style = {{ opacity: fadeAnim }}>
+                    <Text>Name: {pokemon.name}</Text>
+                    <Button title = {isFavorite ? "Unfavorite" : "Favorite"} onPress = {onToggleFavorite}/>
+                </Animated.View>
+                {pokemon.image && (
+                    <Animated.View style = {{ transform: [{ rotate }] }}>
+                        <Image
+                            source = {{uri: pokemon.image }}
+                            style = {{ width: 200, height: 200 }}
+                        />
+                    </Animated.View>
+                )}
+                <Animated.View style = {{ opacity: fadeAnim }}>
+                    <Text>Types:</Text>
+                    {pokemon.types.map((t, i) => (
+                        <Text key = {i}>- {t}</Text>
+                    ))}
+                    <Text>Abilities:</Text>
+                    {pokemon.abilities.map((a, i) => (
+                        <Text key = {i}>- {a}</Text>
+                    ))}
+                    <Text>First 5 Moves:</Text>
+                    {pokemon.moves.map((m, i) => (
+                        <Text key = {i}>- {m}</Text>
+                    ))}
+                    <Text style = {{ marginTop: 20 }}>Favorites</Text>
+                    {favorites.map((name, i) => (
+                        <Text key = {i} style = {{ color: "blue" }} onPress = {() => onLoadFavorite(name)}
+                        >
+                            {name}
+                        </Text>
+                    ))}
+                </Animated.View>
+        </View>
         )}
         </View>
     );
